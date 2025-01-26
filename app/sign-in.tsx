@@ -1,20 +1,30 @@
-import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, Image, ScrollView, TouchableOpacity, Alert } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import images from '@/constants/images'
 import icones from '@/constants/icons'
+import { login } from '@/lib/appwrite'
+
 
 const signIn = () => {
-    const handleLogin = () => {
 
+    const handleLogin = async () => {
+        const result = await login();
+
+        if(result) {
+            console.log("Login Success");
+        } else {
+            Alert.alert('Error','Failed to login')
+        }      
     }
+
   return (
     <SafeAreaView className='bg-white h-full'>
       <ScrollView contentContainerClassName='h-full'> 
         <Image source={images.onboarding} className='w-full h-4/6' resizeMode='contain'/>
         <View className='px-10'>
-            
+
             <Text className='text-base text-center uppercase font-rubik text-black-200'>Welcome to ReState</Text>
             <Text className='font-rubik-bold text-3xl text-center mt-2 text-black-300'>Let's Get You Closer to {'\n'}
                 <Text className='text-primary-300'>Your Ideal Home</Text>
